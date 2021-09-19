@@ -42,4 +42,20 @@ function draw(event){
         context.lineJoin = "round";
         context.stroke();
     }
+    event.preventDefault();
+}
+
+function stop(){
+    if (is_drawing){
+        context.stroke();
+        context.clothPath();
+        is_drawing = false();
+    }
+    event.preventDefault();
+}
+
+function  change_color(element){
+    //function to let the user use the buttons on the canvas and change color
+    draw_color = element.style.background;
+    
 }
