@@ -54,7 +54,7 @@ function stop(event){
         is_drawing = false();
     }
     event.preventDefault();
-    
+
     if ( event.type != 'mouseout'){
     restore_array.push(context.getImageData(0,0, canvas.width, canvas.height));
     index +=1;
@@ -70,9 +70,17 @@ function  change_color(element){
 function clear_canvas(){
     context.fillstyle = start_background_color;
     context.clearRect(0,0, canvas.width, canvas.height);
-    context.fillrect(0,0, canvas.width, canvas.height);    
+    context.fillrect(0,0, canvas.width, canvas.height);  
+    restore_array = [];  
+    index =-1;
 }
 
 function undo_last(){
-
+    if (index <= 0){
+        clear_canvas();
+    }else{
+        index -= 1;
+        restore_array.pop();
+        context.putImageData(restore_array[index], 0,0);
+    }
 }
