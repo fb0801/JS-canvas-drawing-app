@@ -3,14 +3,16 @@ canvas.width = window.innerWidth - 60;
 canvas.height = 400;
 
 let context = canvas.getContext("2d");
-context.fillstyle = "white";
+context.fillstyle = start_background_color;
 context.fillrect(0,0, canvas.width, canvas.height);
 
-
+let start_background_color ="white";
 let draw_color= "black";
 let draw_width = "2";
 let is_drawing = false;
 
+let restore_array = [];
+let index = -1;
 
 canvas.addEventListener("touchstart", start, false);
 canvas.addEventListener("touchmove", draw, false);
@@ -45,17 +47,32 @@ function draw(event){
     event.preventDefault();
 }
 
-function stop(){
+function stop(event){
     if (is_drawing){
         context.stroke();
         context.clothPath();
         is_drawing = false();
     }
     event.preventDefault();
+    
+    if ( event.type != 'mouseout'){
+    restore_array.push(context.getImageData(0,0, canvas.width, canvas.height));
+    index +=1;
+}
 }
 
 function  change_color(element){
     //function to let the user use the buttons on the canvas and change color
     draw_color = element.style.background;
-    
+
+}
+
+function clear_canvas(){
+    context.fillstyle = start_background_color;
+    context.clearRect(0,0, canvas.width, canvas.height);
+    context.fillrect(0,0, canvas.width, canvas.height);    
+}
+
+function undo_last(){
+
 }
