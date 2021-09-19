@@ -5,3 +5,41 @@ canvas.height = 400;
 let context = canvas.getContext("2d");
 context.fillstyle = "white";
 context.fillrect(0,0, canvas.width, canvas.height);
+
+
+let draw_color= "black";
+let draw_width = "2";
+let is_drawing = false;
+
+
+canvas.addEventListener("touchstart", start, false);
+canvas.addEventListener("touchmove", draw, false);
+canvas.addEventListener("mousedown", start, false);
+canvas.addEventListener("mousemove", draw, false);
+
+
+canvas.addEventListener("touchend", stop, false);
+canvas.addEventListener("mouseup", stop, false);
+canvas.addEventListener("mouseout", stop, false);
+
+
+function start(event){
+    is_drawing = true;
+    context.beginPath();
+    context.moveTo(event.clientX - canvas.offsetLeft,
+        event.clientY - canvas.offsetTop);
+        event.preventDefault();
+}
+
+function draw(event){
+    //to draw on the canvas
+    if (is_drawing){
+        context.lineTo(event.clientX - canvas.offsetLeft,
+                       event.clientY - canvas.offsetTop)
+        context.strokeStyle = draw_color;
+        context.lineWidth = draw_width;
+        context.lineCap = "round"; //to make round drawings
+        context.lineJoin = "round";
+        context.stroke();
+    }
+}
