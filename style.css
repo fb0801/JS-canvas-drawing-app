@@ -8,6 +8,11 @@ body{
     background-color: #313131;
 }
 
+canvas{
+    box-shadow: -3px 2px 9px 6px black;
+    cursor: pointer;
+}
+
 .tools{
     display: flex;
     justify-content: center;
